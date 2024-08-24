@@ -1,0 +1,158 @@
+// .all {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     border: 1px solid #c5bdbd;
+//     border-radius: 8px;
+//     position: relative;
+//     width: 40vw;
+// }
+
+
+// .title {
+//     display: flex;
+//     border-radius: 6px 6px 0 0;
+//     flex-direction: row;
+//     justify-content: space-between;
+//     align-items: center;
+//     padding: 12px 5px;
+//     margin-top: 0;
+//     border-bottom: 2px solid #171717;
+//     background-color: #95a6a8;
+//     width: calc(100% - 8px);
+//     margin: 0 10px;
+
+//     h2 {
+//         margin-right: 1.5rem;
+//     }
+
+//     .close {
+//         background: none;
+//         border: none;
+//         font-size: 24px;
+//     }
+// }
+
+input[type=number] {
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+// .all-inputs {
+//     width: calc(100% - 4rem);
+//     margin: 20px 0 !important;
+//     padding: 0 30px;
+
+
+
+//     .inputs {
+//         display: flex;
+//         flex-direction: column;
+//         justify-content: center;
+
+//         input::placeholder {
+//             font-size: 14px;
+//             color: #171717;
+//         }
+
+//         label {
+//             margin-bottom: 10px;
+//         }
+
+//         .label {
+//             display: flex;
+//             justify-content: space-between;
+
+//             .info {
+//                 background: none;
+//                 border: none;
+//             }
+//         }
+
+//         .error{
+//             color: red;
+//             font-size: 12px;
+//             position: relative;
+//             bottom: 1rem;
+//             margin-right: 25px;
+//         }
+//     }
+
+// }
+
+// form:not(.button) {
+//     width: 100%;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+
+// }
+
+// mat-form-field {
+//     div {
+
+//         display: flex;
+//         flex-direction: row;
+//         align-items: center;
+//         justify-content: center;
+//     }
+
+// }
+
+// .button {
+//     display: flex;
+//     padding: 12px 5px;
+//     width: calc(100% - 8px);
+//     border-top: 2px solid #171717;
+//     background-color: #95a6a8;
+//     border-radius: 0 0 6px 6px;
+//     justify-content: space-between;
+//     gap: 10px;
+
+//     .submit {
+//         padding: 10px 20px;
+//         font-size: 16px;
+//         border: none;
+//         border-radius: 4px;
+//         cursor: pointer;
+//         color: #171717;
+//         font-weight: bold;
+//         background-color: #4CAF50;
+//     }
+
+//     .cancel {
+//         padding: 10px 20px;
+//         border: none;
+//         border-radius: 4px;
+//         cursor: pointer;
+//         background-color: #f44336;
+//         color: #171717;
+//         font-weight: bold;
+//     }
+
+//     .notactive {
+//         background-color: #8d8c8c;
+//         cursor: not-allowed;
+//         color: #dad3d3;
+//     }
+
+// }
+
+
+// button {
+//     margin: 0 1.5rem;
+// }
+
+
+
+// //https://surveyjs.io/form-library/documentation/get-started-angular
+// //https://formly.dev/
+// //https://material.angular.io/components/card/examples
+// //https://material.angular.io/cdk/dialog/overview use for info button to show card that you fill it

@@ -1,0 +1,92 @@
+<div class="flex flex-col items-center border border-gray-400 rounded-lg relative w-[40vw]" *ngIf="isVisible">
+
+    <div class="flex flex-row justify-between items-center p-4 mt-0 border-b-2 border-black bg-gray-400 w-[100%] m-[0_10px] rounded-t-lg my-0">
+        <h3 class="mr-6">افزودن کالا/خدمات</h3>
+        <button class="text-2xl border-none bg-none" (click)="toggleVisibility()">
+            <mat-icon>
+                cancel
+            </mat-icon>
+        </button>
+    </div>
+
+    <form [formGroup]="addProduct" (ngSubmit)="onSubmit()" class="flex flex-col items-center justify-center w-full">
+        <div class="w-[100%] my-5 px-8">
+
+            <div class="flex flex-col justify-center mb-5">
+                <label class="mb-2">شناسه کالا/خدمت(داخلی) * </label>
+                <mat-form-field>
+                    <div class="flex flex-row items-center justify-center">
+                        <input matInput formControlName="domestic" placeholder="شناسه کالا/خدمت(داخلی) را وارد کنید"
+                            class="placeholder:text-sm placeholder:text-black" />
+                        <mat-icon>title</mat-icon>
+                    </div>
+                </mat-form-field>
+                <div *ngIf="isFieldInvalid('domestic')" class="relative mr-6 text-xs text-red-600 bottom-4">
+                    این فیلد باید تکمیل شود.
+                </div>
+            </div>
+
+            <div class="flex flex-col justify-center mb-5">
+                <label class="mb-2">شناسه کالا/خدمت عمومی/اختصاصی * </label>
+                <mat-form-field>
+                    <div class="flex flex-row items-center justify-center">
+                        <input type="number" formControlName="public" matInput
+                            placeholder="شناسه کالا/خدمت عمومی/اختصاصی را وارد کنید "
+                            class="placeholder:text-sm placeholder:text-black" />
+                        <mat-icon>pin</mat-icon>
+                    </div>
+                </mat-form-field>
+                <div *ngIf="isFieldInvalid('public')" class="relative mr-6 text-xs text-red-600 bottom-4">
+                    این فیلد باید تکمیل شود.
+                </div>
+            </div>
+
+            <div class="flex flex-col justify-center mb-5">
+                <div class="flex justify-between">
+                    <label>نرخ مالیات ارزش افزوده * </label>
+                    <button class="border-none bg-none" type="button">
+                        <mat-icon>information</mat-icon>
+                    </button>
+                </div>
+                <mat-form-field>
+                    <div class="flex flex-row items-center justify-center">
+                        <input type="number" formControlName="tax" matInput
+                            placeholder="نرخ مالیات ارزش افزوده را وارد کنید"
+                            class="placeholder:text-sm placeholder:text-black" />
+                        <mat-icon>percent</mat-icon>
+                    </div>
+                </mat-form-field>
+                <div *ngIf="isFieldInvalid('tax')" class="relative mr-6 text-xs text-red-600 bottom-4">
+                    این فیلد باید تکمیل شود.
+                </div>
+
+            </div>
+
+            <div class="flex flex-col justify-center mb-5">
+                <div class="flex justify-between">
+                    <label>شرح تجاری کالا/خدمت * </label>
+                    <button class="border-none bg-none" type="button">
+                        <mat-icon>information</mat-icon>
+                    </button>
+                </div>
+                <mat-form-field>
+                    <div class="flex flex-row items-center justify-center">
+                        <textarea matInput formControlName="business" placeholder="شرح تجاری کالا/خدمت را وارد کنید"
+                            class="placeholder:text-sm placeholder:text-black"></textarea>
+                    </div>
+                </mat-form-field>
+                <div *ngIf="isFieldInvalid('business')" class="relative mr-6 text-xs text-red-600 bottom-4">
+                    این فیلد باید تکمیل شود.
+                </div>
+            </div>
+
+        </div>
+        <div class="flex p-3 w-[100%] border-t-2 border-black bg-gray-400 rounded-b-lg justify-between gap-2">
+            <button mat-mini class="px-4 py-2 font-bold text-black bg-red-600 rounded"
+                [ngClass]="isFormFilled ? 'bg-red-600' : 'bg-gray-600 cursor-not-allowed text-gray-300'"
+                [disabled]="!isFormFilled" (click)="resetForm()"> انصراف </button>
+            <button mat-mini type="submit" class="px-4 py-2 font-bold text-black bg-green-500 rounded"> افزودن </button>
+        </div>
+    </form>
+
+</div>
