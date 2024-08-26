@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatInputModule } from '@angular/material/input';
+import { MatInputModule, MatLabel } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormBuilder, FormArray, FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms'
@@ -16,12 +16,13 @@ import {provideHttpClient, withFetch, withJsonpSupport } from '@angular/common/h
     MatInputModule,
     MatButtonModule,
     MatIconModule,
+    MatLabel,
     ReactiveFormsModule,
     CommonModule,
     MatSnackBarModule,
   ],
   providers: [
-    ApiService // اضافه کردن سرویس به providers
+    ApiService 
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
@@ -72,20 +73,6 @@ export class AppComponent {
     return (field?.invalid && this.isSubmitted) || false;
   }
 
-
-  // onSubmit() {
-  //   if (this.isCancelClicked) return;
-  //   this.isSubmitted = true;
-  //   if (this.addProduct.valid) {
-  //     const formData = this.addProduct.value;
-  //     console.log('Form Data:', formData);
-  //     this.resetForm();
-  //     this.addProduct.valid;
-  //   } else {
-  //     this.addProduct.markAllAsTouched();
-  //     console.log('empty');
-  //   }
-  // }
   onSubmit() {
     if (this.isCancelClicked) return;
     this.isSubmitted = true;
