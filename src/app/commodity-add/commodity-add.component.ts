@@ -1,42 +1,39 @@
 import { Component } from '@angular/core';
-import { MatInputModule, MatLabel } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { FormBuilder, FormArray, FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms'
-import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, Validators , ReactiveFormsModule} from '@angular/forms'
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ApiService } from './api.service';
-import {provideHttpClient, withFetch, withJsonpSupport } from '@angular/common/http';
-import { CommodityAddComponent } from './commodity-add/commodity-add.component';
+import { MatInputModule, MatLabel } from '@angular/material/input';
+import { CommonModule } from '@angular/common';
+import { ApiService } from '../api.service';
+import { MatCard, MatCardContent } from '@angular/material/card';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatDivider } from '@angular/material/divider';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatLabel,
-    ReactiveFormsModule,
-    CommonModule,
-    MatSnackBarModule,
-    CommodityAddComponent
-  ],
-  providers: [
-    ApiService 
-  ],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: 'app-commodity-add',
+  templateUrl: './commodity-add.component.html',
+standalone:true,
+imports:[
+  MatInputModule,
+  MatButtonModule,
+  MatIconModule,
+  MatLabel,
+  ReactiveFormsModule,
+  CommonModule,
+  MatSnackBarModule,
+  MatCard,
+  MatToolbar,
+  MatDivider,
+  MatCardContent,
+  MatCheckbox
+
+],
+  styleUrl: './commodity-add.component.scss'
 })
-
-export class AppComponent {
-  title(title: any) {
-    throw new Error('Method not implemented.');
-  }
-
-
-
+export class CommodityAddComponent {
   isVisible = true;
   addProduct: FormGroup;
   isFormFilled: boolean = false;
@@ -48,17 +45,28 @@ export class AppComponent {
   constructor(private fb: FormBuilder, private apiService: ApiService) {
 
     this.addProduct = this.fb.group({
-      domestic: ['', Validators.required],
-      public: ['', Validators.required],
-      tax: ['', Validators.required],
-      business: ['', Validators.required]
+
+      isForAllBranches: [true, Validators.required],
+      serviceStuffId: ['', Validators.required],
+      taxPayerInternalServiceStuffId: ['', Validators.required],
+      taxPayerInternalTitle: ['', Validators.required],
+
+      serviceStuffTitle: [''],
+      defaultValueOfTaxAndDuties: [0],
+      defaultTaxAndDutiesSubject: [''],
+      defaultTaxAndDutiesRate: [0],
+      defaultValueOfLegalFunds: [0],
+      defaultLegalFundsSubject: [''],
+      defaultLegalFundsRate: [0],
+      defaultFee: [0],
+      defaultMeasurementUnit: [''],
+      defaultCurrency: ['']
     });
 
     this.addProduct.valueChanges.subscribe(() => {
       this.isFormFilled = this.addProduct.dirty && !this.addProduct.invalid;
     });
   }
-
 
   resetForm() {
     this.isCancelClicked = true;
@@ -74,6 +82,7 @@ export class AppComponent {
     const field = this.addProduct.get(fieldName);
     return (field?.invalid && this.isSubmitted) || false;
   }
+
 
   onSubmit() {
     if (this.isCancelClicked) return;
@@ -106,4 +115,3 @@ export class AppComponent {
   }
 
 }
-
