@@ -45,7 +45,6 @@ export class CommodityAddComponent {
   constructor(private fb: FormBuilder, private apiService: ApiService) {
 
     this.addProduct = this.fb.group({
-
       isForAllBranches: [true, Validators.required],
       serviceStuffId: ['', Validators.required],
       taxPayerInternalServiceStuffId: ['', Validators.required],
@@ -71,6 +70,17 @@ export class CommodityAddComponent {
   resetForm() {
     this.isCancelClicked = true;
     this.addProduct.reset();
+
+    const defaultTaxAndDutiesRateElement = document.querySelector('[placeholder="نرخ مالیات ارزش افزوده را وارد کنید"]') as HTMLInputElement;
+    const defaultTaxAndDutiesSubjectElement = document.querySelector('[placeholder="شرح تجاری کالا/خدمت را وارد کنید"]') as HTMLTextAreaElement;
+
+    if (defaultTaxAndDutiesRateElement) {
+        defaultTaxAndDutiesRateElement.value = '';
+    }
+    if (defaultTaxAndDutiesSubjectElement) {
+        defaultTaxAndDutiesSubjectElement.value = ''; 
+    }
+
     this.addProduct.markAsPristine();
     this.addProduct.markAsUntouched();
     this.isFormFilled = false;
