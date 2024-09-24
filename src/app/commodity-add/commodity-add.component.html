@@ -1,100 +1,72 @@
 <mat-card>
     <form [formGroup]="addProduct" (ngSubmit)="onSubmit()">
         <mat-toolbar>
-            <button class="ml-1" mat-stroked-button>
-                ثبت<mat-icon>check_small</mat-icon>
+            <button class="ml-1" mat-stroked-button type="submit">
+                ثبت<mat-icon matSuffix>check_small</mat-icon>
             </button>
-            <!-- <a mat-stroked-button [routerLink]="'/sell/invoice/list'"> -->
-            <a mat-stroked-button>
-                بازگشت<mat-icon>keyboard_return</mat-icon></a>
+            <a mat-stroked-button [routerLink]="'/sell/invoice/list'">
+                بازگشت<mat-icon matSuffix>keyboard_return</mat-icon></a>
         </mat-toolbar>
         <mat-divider></mat-divider>
-
-
-        <mat-card-content class="w-[50%] my-5 px-8">
-
-
+        <mat-card-content class="w-[50%] grid grid-rows-4">
             <section class="example-section">
-                <mat-checkbox class="example-margin"  formControlName='isForAllBranches' [disabled]="false">
-                    برای تمامم شعبه های فعال
+                <mat-checkbox class="example-margin" formControlName='isForAllBranches'>
+                    برای تمام شعبه های فعال
                 </mat-checkbox>
             </section>
-
-            <div class="flex flex-col justify-center mb-5">
-                <mat-form-field>
+            <div class="flex flex-col items-start justify-start w-full">
+                <mat-form-field class="w-full">
                     <mat-label class="mb-2 text-sm">شناسه کالا/خدمت(داخلی)</mat-label>
-                    <div class="flex flex-row items-center justify-center">
-                        <input matInput formControlName="serviceStuffId" placeholder="شناسه کالا/خدمت(داخلی) را وارد کنید"
-                            class="placeholder:text-sm placeholder:text-black" required />
-                        <mat-icon>title</mat-icon>
-                    </div>
-                    <div *ngIf="isFieldInvalid('serviceStuffId')" class="relative mr-6 text-xs text-red-600 bottom-4">
+                    <input matInput formControlName="serviceStuffId" type="number"
+                        placeholder="شناسه کالا/خدمت(داخلی) را وارد کنید"
+                        class="placeholder:text-sm placeholder:text-black" required />
+                    <mat-icon matSuffix>title</mat-icon>
+                    <mat-error *ngIf="addProduct.get('serviceStuffId')?.hasError('required')">
                         این فیلد باید تکمیل شود.
-                    </div>
+                    </mat-error>
                 </mat-form-field>
-            </div>
 
-            <div class="flex flex-col justify-center mb-5">
-                <mat-form-field>
+                <mat-form-field class="w-full">
                     <mat-label class="mb-2 text-sm">شناسه کالا/خدمت عمومی/اختصاصی </mat-label>
-                    <div class="flex flex-row items-center justify-center">
-                        <input  formControlName="taxPayerInternalServiceStuffId" matInput
-                            placeholder="شناسه کالا/خدمت عمومی/اختصاصی را وارد کنید "
-                            class="placeholder:text-sm placeholder:text-black" required />
-                        <mat-icon>pin</mat-icon>
-                    </div>
-
-                    <div *ngIf="isFieldInvalid('taxPayerInternalServiceStuffId')" class="relative mr-6 text-xs text-red-600 bottom-4">
+                    <input formControlName="taxPayerInternalServiceStuffId" type="number" matInput
+                        placeholder="شناسه کالا/خدمت عمومی/اختصاصی را وارد کنید "
+                        class="placeholder:text-sm placeholder:text-black" required />
+                    <mat-icon matSuffix>pin</mat-icon>
+                    <mat-error *ngIf="addProduct.get('taxPayerInternalServiceStuffId')?.hasError('required')">
                         این فیلد باید تکمیل شود.
-                    </div>
+                    </mat-error>
                 </mat-form-field>
-            </div>
 
-            <div class="flex flex-col justify-center mb-5">
-                <mat-form-field>
+                <mat-form-field class="w-full">
                     <mat-label class="mb-2 text-sm">عنوان کالا خدمت در سیستم مودی</mat-label>
-                    <div class="flex flex-row items-center justify-center">
-                        <input matInput formControlName="taxPayerInternalTitle" placeholder="عنوان کالا خدمت در سیستم مودی را وارد کنید"
-                            class="placeholder:text-sm placeholder:text-black" required />
-                        <mat-icon>title</mat-icon>
-                    </div>
-                    <div *ngIf="isFieldInvalid('taxPayerInternalTitle')" class="relative mr-6 text-xs text-red-600 bottom-4">
+                    <input matInput formControlName="taxPayerInternalTitle"
+                        placeholder="عنوان کالا خدمت در سیستم مودی را وارد کنید"
+                        class="placeholder:text-sm placeholder:text-black" required />
+                    <mat-icon matSuffix>title</mat-icon>
+                    <mat-error *ngIf="addProduct.get('taxPayerInternalTitle')?.hasError('required')">
                         این فیلد باید تکمیل شود.
-                    </div>
+                    </mat-error>
                 </mat-form-field>
-            </div>
 
-            <div class="flex flex-col justify-center mb-5">
-                <mat-form-field>
+                <mat-form-field class="w-full">
                     <mat-label class="text-sm">نرخ مالیات ارزش افزوده </mat-label>
-                    <div class="flex flex-row items-center justify-center">
-                        <input type="number" matInput
-                            placeholder="نرخ مالیات ارزش افزوده را وارد کنید"
-                            class="placeholder:text-sm placeholder:text-black"  />
-                        <mat-icon>percent</mat-icon>
-                    </div>
-<!-- 
-                    <div *ngIf="isFieldInvalid('tax')" class="relative mr-6 text-xs text-red-600 bottom-4">
+                    <input type="number" matInput placeholder="نرخ مالیات ارزش افزوده را وارد کنید"
+                        class="placeholder:text-sm placeholder:text-black" />
+                    <mat-icon matSuffix>percent</mat-icon>
+                    <mat-error *ngIf="addProduct.get('tax')?.hasError('required')">
                         این فیلد باید تکمیل شود.
-                    </div> -->
+                    </mat-error>
                 </mat-form-field>
-            </div>
 
-            <div class="flex flex-col justify-center mb-5">
-                <mat-form-field>
+                <mat-form-field class="w-full">
                     <mat-label class="text-sm">شرح تجاری کالا/خدمت</mat-label>
-                    <div class="flex flex-row items-center justify-center">
-                        <textarea matInput placeholder="شرح تجاری کالا/خدمت را وارد کنید"
-                            class="placeholder:text-sm placeholder:text-black" ></textarea>
-                    </div>
-<!-- 
-                    <div *ngIf="isFieldInvalid('business')" class="relative mr-6 text-xs text-red-600 bottom-4">
+                    <textarea matInput placeholder="شرح تجاری کالا/خدمت را وارد کنید"
+                        class="placeholder:text-sm placeholder:text-black"></textarea>
+                    <mat-error *ngIf="addProduct.get('business')?.hasError('required') ">
                         این فیلد باید تکمیل شود.
-                    </div> -->
+                    </mat-error>
                 </mat-form-field>
             </div>
-
-            
         </mat-card-content>
     </form>
 </mat-card>

@@ -1,36 +1,11 @@
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { FormBuilder, FormGroup, Validators , ReactiveFormsModule} from '@angular/forms'
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatInputModule, MatLabel } from '@angular/material/input';
-import { CommonModule } from '@angular/common';
-import { ApiService } from '../api.service';
-import { MatCard, MatCardContent } from '@angular/material/card';
-import { MatToolbar } from '@angular/material/toolbar';
-import { MatDivider } from '@angular/material/divider';
-import { MatCheckbox } from '@angular/material/checkbox';
-
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { ApiService } from '../../services/api.service';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { SnackbarComponent } from '../../base/components/snackbar/snackbar/snackbar.component';
 @Component({
   selector: 'app-commodity-add',
   templateUrl: './commodity-add.component.html',
-standalone:true,
-imports:[
-  MatInputModule,
-  MatButtonModule,
-  MatIconModule,
-  MatLabel,
-  ReactiveFormsModule,
-  CommonModule,
-  MatSnackBarModule,
-  MatCard,
-  MatToolbar,
-  MatDivider,
-  MatCardContent,
-  MatCheckbox
-
-],
   styleUrl: './commodity-add.component.scss'
 })
 export class CommodityAddComponent {
@@ -39,18 +14,12 @@ export class CommodityAddComponent {
   isFormFilled: boolean = false;
   isSubmitted = false;
   isCancelClicked = false;
-
-
-
-  constructor(private fb: FormBuilder, private apiService: ApiService) {
-
+  constructor(private snackBar: MatSnackBar,private fb: FormBuilder,private apiService: ApiService) {
     this.addProduct = this.fb.group({
       isForAllBranches: [true, Validators.required],
       serviceStuffId: ['', Validators.required],
       taxPayerInternalServiceStuffId: ['', Validators.required],
       taxPayerInternalTitle: ['', Validators.required],
-
-      serviceStuffTitle: [''],
       defaultValueOfTaxAndDuties: [0],
       defaultTaxAndDutiesSubject: [''],
       defaultTaxAndDutiesRate: [0],
@@ -66,7 +35,19 @@ export class CommodityAddComponent {
       this.isFormFilled = this.addProduct.dirty && !this.addProduct.invalid;
     });
   }
-
+  showSnackbar(message: string, icon?: string, customClass?: string, config?: MatSnackBarConfig) {
+    const customConfig: MatSnackBarConfig = {
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      duration: 2000,
+      panelClass: customClass,
+      data: {
+        message: message,
+        icon: icon
+      }
+    };
+    this.snackBar.openFromComponent(SnackbarComponent, customConfig);
+  }
   resetForm() {
     this.isCancelClicked = true;
     this.addProduct.reset();
@@ -92,29 +73,25 @@ export class CommodityAddComponent {
     const field = this.addProduct.get(fieldName);
     return (field?.invalid && this.isSubmitted) || false;
   }
-
-
   onSubmit() {
     if (this.isCancelClicked) return;
     this.isSubmitted = true;
     if (this.addProduct.valid) {
       const formData = this.addProduct.value;
-      this.apiService.addProduct(formData).subscribe(response => {
-        if (response) {
-          this.apiService.showNotification('داده‌ها با موفقیت ارسال شدند', 'success');
+      this.apiService.post('taxpayer/AddItem?userid=4Ow5Fn',formData).subscribe(response => {
+        if (response.isSuccess) {
+          this.showSnackbar('ثبت کالا خدمت با موفقیت انجام شد.', 'check_circle', 'snackbar-success');
           this.resetForm();
         } else {
-          this.apiService.showNotification('داده‌ها ارسال نشدند', 'error');
+          this.showSnackbar('ثبت کالا خدمت با خطا مواجه شد!', 'error_circle', 'snackbar-error');
         }
       }, error => {
-        this.apiService.showNotification('خطا در ارسال داده‌ها', 'error');
+        this.showSnackbar('ثبت کالا خدمت با خطا مواجه شد!', 'error_circle', 'snackbar-error');
       });
     } else {
       this.addProduct.markAllAsTouched();
-      this.apiService.showNotification('لطفاً همه فیلدها را کامل کنید', 'error');
     }
   }
-
 
   updateFormStatus() {
     this.isFormFilled = this.addProduct.valid;
@@ -123,5 +100,4 @@ export class CommodityAddComponent {
   toggleVisibility() {
     this.isVisible = !this.isVisible;
   }
-
 }
